@@ -1,0 +1,416 @@
+<xloco>
+    <usuario nbusuario="Rene">
+        <ontologia nbontologia="conta">
+            <ideal nbideal="calculador de isan">
+                <atributos>
+                    <atributo nbatributo="precio" tipo="decimal"/>
+                    <atributo nbatributo="liminf" tipo="decimal"/>
+                    <atributo nbatributo="limsup" tipo="decimal"/>
+                    <atributo nbatributo="tasa" tipo="decimal"/>
+                    <atributo nbatributo="fija" tipo="decimal"/>
+                    <atributo nbatributo="isan" tipo="decimal"/>
+                </atributos>
+                <metodos>
+                    <metodo nbmetodo="isan">
+                        <asignacion>
+                            <variable>precio</variable>
+                            <operando>200000</operando>
+                        </asignacion>
+                        <decision>
+                            <condicion>precio &gt; 0.01 &amp;amp;&amp;amp; !(precio &gt; 233343.40)</condicion>
+                            <verdadero>
+                                <metodo nbmetodo="metodo1">
+                                    <asignacion>
+                                        <variable>tasa</variable>
+                                        <operando>2.0</operando>
+                                    </asignacion>
+                                    <asignacion>
+                                        <variable>fija</variable>
+                                        <operando>0.00</operando>
+                                    </asignacion>
+                                    <asignacion>
+                                        <variable>liminferior</variable>
+                                        <operando>0.01</operando>
+                                    </asignacion>
+                                </metodo>
+                            </verdadero>
+                            <falso>
+                                <metodo nbmetodo="metodo2">
+                                    <decision>
+                                        <condicion>precio &gt; 233343.40 &amp;amp;&amp;amp; !(precio &gt; 280012.02)</condicion>
+                                        <verdadero>
+                                            <metodo nbmetodo="metodo3">
+                                                <asignacion>
+                                                    <variable>tasa</variable>
+                                                    <operando>5.0</operando>
+                                                </asignacion>
+                                                <asignacion>
+                                                    <variable>fija</variable>
+                                                    <operando>4666.79</operando>
+                                                </asignacion>
+                                                <asignacion>
+                                                    <variable>liminferior</variable>
+                                                    <operando>233343.41</operando>
+                                                </asignacion>
+                                            </metodo>
+                                        </verdadero>
+                                        <falso>
+                                            <metodo nbmetodo="metodo4">
+                                                <decision>
+                                                    <condicion>precio &gt; 280012.03 &amp;amp;&amp;amp; !(precio &gt; 326680.83)</condicion>
+                                                    <verdadero>
+                                                        <metodo nbmetodo="metodo5">
+                                                            <asignacion>
+                                                                <variable>tasa</variable>
+                                                                <operando>10.0</operando>
+                                                            </asignacion>
+                                                            <asignacion>
+                                                                <variable>fija</variable>
+                                                                <operando>7000.33</operando>
+                                                            </asignacion>
+                                                            <asignacion>
+                                                                <variable>liminferior</variable>
+                                                                <operando>280012.03</operando>
+                                                            </asignacion>
+                                                        </metodo>
+                                                    </verdadero>
+                                                    <falso>
+                                                        <metodo nbmetodo="metodo6">
+                                                            <decision>
+                                                                <condicion>precio &gt; 326680.84 &amp;amp;&amp;amp; !(precio &gt; 420017.94)</condicion>
+                                                                <verdadero>
+                                                                    <metodo nbmetodo="metodo7">
+                                                                        <asignacion>
+                                                                            <variable>tasa</variable>
+                                                                            <operando>15.0</operando>
+                                                                        </asignacion>
+                                                                        <asignacion>
+                                                                            <variable>fija</variable>
+                                                                            <operando>11667.19</operando>
+                                                                        </asignacion>
+                                                                        <asignacion>
+                                                                            <variable>liminferior</variable>
+                                                                            <operando>326680.84</operando>
+                                                                        </asignacion>
+                                                                    </metodo>
+                                                                </verdadero>
+                                                                <falso>
+                                                                    <metodo nbmetodo="metodo8">
+                                                                        <decision>
+                                                                            <condicion>precio &gt; 420017.95</condicion>
+                                                                            <verdadero>
+                                                                                <metodo nbmetodo="metodo9">
+                                                                                    <asignacion>
+                                                                                        <variable>tasa</variable>
+                                                                                        <operando>17.0</operando>
+                                                                                    </asignacion>
+                                                                                    <asignacion>
+                                                                                        <variable>fija</variable>
+                                                                                        <operando>25667.73</operando>
+                                                                                    </asignacion>
+                                                                                    <asignacion>
+                                                                                        <variable>liminferior</variable>
+                                                                                        <operando>420017.95</operando>
+                                                                                    </asignacion>
+                                                                                </metodo>
+                                                                            </verdadero>
+                                                                            <falso>
+                                                                                <metodo nbmetodo="metodoVacio">
+                                                                                </metodo>
+                                                                            </falso>
+                                                                        </decision>
+                                                                    </metodo>
+                                                                </falso>
+                                                            </decision>
+                                                        </metodo>
+                                                    </falso>
+                                                </decision>
+                                            </metodo>
+                                        </falso>
+                                    </decision>
+                                </metodo>
+                            </falso>
+                        </decision>
+                        <asignacion>
+                            <variable>isan</variable>
+                            <operando>((precio-liminferior)*tasa)+fija</operando>
+                        </asignacion>
+                    </metodo>
+                </metodos>
+            </ideal>
+        </ontologia>
+    </usuario>
+</xloco>
+
+<!------------------------------------------- XSLT ----------------------------------------------->
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+<html>
+	<body>
+		<h2>Ejecución obtenida</h2>
+		<h3>Lenguaje JAVASCRIPT</h3>
+		<xsl:apply-templates/>
+		<xsl:for-each select="//usuario">
+			<xsl:variable name="idusuario" select="position()" />
+			Insert into usuarios values (
+			<xsl:value-of select="$idusuario"/>,
+			"<xsl:value-of select="@nbusuario"/>"); <br/>
+			<xsl:for-each select="ontologia">
+				<xsl:variable name="idontologia" select="position()" />
+				Insert into ontologias values (
+				<xsl:value-of select="$idusuario"/>,
+				<xsl:value-of select="$idontologia"/>,
+				"<xsl:value-of select="@nbontologia"/>"); <br/>
+				<xsl:for-each select="ideal">
+					<xsl:variable name="idideal" select="position()" />
+					Insert into ideales values (
+					<xsl:value-of select="$idusuario"/>,
+					<xsl:value-of select="$idontologia"/>,
+					<xsl:value-of select="$idideal"/>,
+					"<xsl:value-of select="@nbideal"/>"); <br/>
+					<xsl:for-each select="//metodo">
+						<xsl:variable name="idmetodo" select="position()" />
+						Insert into metodos values(
+						<xsl:value-of select="$idusuario"/>,
+						<xsl:value-of select="$idontologia"/>,
+						<xsl:value-of select="$idideal"/>,
+						<xsl:value-of select="$idmetodo"/>, 
+						'<xsl:value-of select="@nbmetodo"/>');<br/>
+						<xsl:for-each select="child::*">
+							<xsl:variable name="idinstruccion" select="position()" />
+							Insert into instrucciones values(
+							<xsl:value-of select="$idusuario"/>,
+							<xsl:value-of select="$idontologia"/>,
+							<xsl:value-of select="$idideal"/>,
+							<xsl:value-of select="$idmetodo"/>, 
+							'<xsl:value-of select="$idinstruccion"/>', 
+							<xsl:choose>
+								<xsl:when test="name()='asignacion'">'1'</xsl:when>
+								<xsl:when test="name()='decision'">'2'</xsl:when>
+								<xsl:otherwise>'0'</xsl:otherwise>
+							</xsl:choose>
+							);<br/> 
+							<xsl:choose>
+								<xsl:when test="name()='decision'">
+									Insert into decisiones values(
+									<xsl:value-of select="$idusuario"/>,
+									<xsl:value-of select="$idontologia"/>,
+									<xsl:value-of select="$idideal"/>,
+									<xsl:value-of select="$idmetodo"/>, 
+									<xsl:value-of select="$idinstruccion"/>,
+									'<xsl:value-of select="condicion"/>',
+									'<xsl:value-of select="verdadero/metodo/@nbmetodo"/>',
+									'<xsl:value-of select="falso/metodo/@nbmetodo"/>');<br/> 
+								</xsl:when>
+								<xsl:when test="name()='asignacion'">
+									Insert into asignaciones values(
+									<xsl:value-of select="$idusuario"/>,
+									<xsl:value-of select="$idontologia"/>,
+									<xsl:value-of select="$idideal"/>,
+									<xsl:value-of select="$idmetodo"/>, 
+									<xsl:value-of select="$idinstruccion"/>,
+									'<xsl:value-of select="variable"/>',
+									'<xsl:value-of select="operando"/>');<br/>
+								</xsl:when>
+							</xsl:choose>
+						</xsl:for-each>
+					</xsl:for-each>
+				</xsl:for-each>
+			</xsl:for-each>
+		</xsl:for-each>
+		<script type="text/javascript">
+			var hola=1;
+			document.write(hola);
+		</script>
+		Hola
+	</body>
+</html>
+</xsl:template>
+	<xsl:template match="//ideal">
+		<xsl:apply-templates select="atributos"/>
+		<xsl:apply-templates select="metodos"/>
+		<br/><h3>Lenguaje MYSQL</h3>
+	</xsl:template>
+
+	<xsl:template match="atributos">
+		<xsl:apply-templates select="atributo"/>
+	</xsl:template>
+
+	<xsl:template match="atributo">
+		<code>
+		<xsl:choose>
+			<xsl:when test="@tipo = 'entero'">Var <xsl:value-of select="@nbatributo"/> as integer;<br/></xsl:when>
+			<xsl:when test="@tipo = 'logico'">Var <xsl:value-of select="@nbatributo"/> as Boolean;<br/></xsl:when>
+			<xsl:when test="@tipo = 'texto'">Var <xsl:value-of select="@nbatributo"/> as String;<br/></xsl:when>
+			<xsl:when test="@tipo = 'decimal'">Var <xsl:value-of select="@nbatributo"/> as Float;<br/></xsl:when>
+			<xsl:when test="@tipo = 'fecha'">Var <xsl:value-of select="@nbatributo"/> as Date;<br/></xsl:when>
+			<xsl:when test="@tipo = 'objeto'">Var <xsl:value-of select="@nbatributo"/> as Object<br/></xsl:when>
+			<xsl:otherwise>Tipo invalido</xsl:otherwise>    
+		</xsl:choose>
+	</code>
+	</xsl:template>
+
+	<xsl:template match="metodos">
+		<xsl:apply-templates select="metodo"/>
+	</xsl:template>
+		
+	<xsl:template match="metodo">
+		<br/>function <xsl:value-of select="@nbmetodo"/> () {<br/>
+		<xsl:apply-templates/> }<br/>
+	</xsl:template>
+		
+	<xsl:template match="asignacion">
+		<xsl:value-of select="variable"/>=
+		<xsl:value-of select="operando"/>;<br/>
+	</xsl:template>
+		
+	<xsl:template match="decision">
+		if (<xsl:value-of select="condicion"/>) {
+		<xsl:apply-templates select="verdadero"/>
+		<xsl:apply-templates select="falso"/>
+	</xsl:template>
+		
+	<xsl:template match="verdadero">
+		<xsl:apply-templates select="metodo"/>}<br/>
+	</xsl:template>
+
+	<xsl:template match="falso">
+		<code>else {<br/><xsl:apply-templates select="metodo"/>}<br/></code>
+	</xsl:template>
+	
+</xsl:stylesheet>
+
+<!------------------------------------------- RESULTADO ----------------------------------------------->
+
+Ejecución obtenida
+
+Lenguaje JAVASCRIPT
+
+Var precio as Float;
+Var liminf as Float;
+Var limsup as Float;
+Var tasa as Float;
+Var fija as Float;
+Var isan as Float;
+
+function isan () {
+	precio= 200000;
+	if (precio > 0.01 && !(precio > 233343.40)) { 
+		function metodo1 () {
+			tasa= 2.0;
+			fija= 0.00;
+			liminferior= 0.01;
+		}
+	}
+	else {
+		function metodo2 () {
+			if (precio > 233343.40 && !(precio > 280012.02)) { 
+				function metodo3 () {
+					tasa= 5.0;
+					fija= 4666.79;
+					liminferior= 233343.41;
+				}
+			}
+			else {
+				function metodo4 () {
+					if (precio > 280012.03 && !(precio > 326680.83)) { 
+						function metodo5 () {
+							tasa= 10.0;
+							fija= 7000.33;
+							liminferior= 280012.03;
+						}
+					}
+					else {
+						function metodo6 () {
+							if (precio > 326680.84 && !(precio > 420017.94)) { 
+								function metodo7 () {
+									tasa= 15.0;
+									fija= 11667.19;
+									liminferior= 326680.84;
+								}
+							}
+							else {
+								function metodo8 () {
+									if (precio > 420017.95) { 
+										function metodo9 () {
+											tasa= 17.0;
+											fija= 25667.73;
+											liminferior= 420017.95;
+										}
+									}
+									else {
+										function metodoVacio () {
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+isan= ((precio-liminferior)*tasa)+fija;
+}
+
+Lenguaje MYSQL
+
+Insert into usuarios values ( 1, "Rene"); 
+Insert into ontologias values ( 1, 1, "conta"); 
+Insert into ideales values ( 1, 1, 1, "calculador de isan"); 
+Insert into metodos values( 1, 1, 1, 1, 'isan');
+Insert into instrucciones values( 1, 1, 1, 1, '1', '1' );
+Insert into asignaciones values( 1, 1, 1, 1, 1, 'precio', '200000');
+Insert into instrucciones values( 1, 1, 1, 1, '2', '2' );
+Insert into decisiones values( 1, 1, 1, 1, 2, 'precio > 0.01 && !(precio > 233343.40)', 'metodo1', 'metodo2');
+Insert into instrucciones values( 1, 1, 1, 1, '3', '1' );
+Insert into asignaciones values( 1, 1, 1, 1, 3, 'isan', '((precio-liminferior)*tasa)+fija');
+Insert into metodos values( 1, 1, 1, 2, 'metodo1');
+Insert into instrucciones values( 1, 1, 1, 2, '1', '1' );
+Insert into asignaciones values( 1, 1, 1, 2, 1, 'tasa', '2.0');
+Insert into instrucciones values( 1, 1, 1, 2, '2', '1' );
+Insert into asignaciones values( 1, 1, 1, 2, 2, 'fija', '0.00');
+Insert into instrucciones values( 1, 1, 1, 2, '3', '1' );
+Insert into asignaciones values( 1, 1, 1, 2, 3, 'liminferior', '0.01');
+Insert into metodos values( 1, 1, 1, 3, 'metodo2');
+Insert into instrucciones values( 1, 1, 1, 3, '1', '2' );
+Insert into decisiones values( 1, 1, 1, 3, 1, 'precio > 233343.40 && !(precio > 280012.02)', 'metodo3', 'metodo4');
+Insert into metodos values( 1, 1, 1, 4, 'metodo3');
+Insert into instrucciones values( 1, 1, 1, 4, '1', '1' );
+Insert into asignaciones values( 1, 1, 1, 4, 1, 'tasa', '5.0');
+Insert into instrucciones values( 1, 1, 1, 4, '2', '1' );
+Insert into asignaciones values( 1, 1, 1, 4, 2, 'fija', '4666.79');
+Insert into instrucciones values( 1, 1, 1, 4, '3', '1' );
+Insert into asignaciones values( 1, 1, 1, 4, 3, 'liminferior', '233343.41');
+Insert into metodos values( 1, 1, 1, 5, 'metodo4');
+Insert into instrucciones values( 1, 1, 1, 5, '1', '2' );
+Insert into decisiones values( 1, 1, 1, 5, 1, 'precio > 280012.03 && !(precio > 326680.83)', 'metodo5', 'metodo6');
+Insert into metodos values( 1, 1, 1, 6, 'metodo5');
+Insert into instrucciones values( 1, 1, 1, 6, '1', '1' );
+Insert into asignaciones values( 1, 1, 1, 6, 1, 'tasa', '10.0');
+Insert into instrucciones values( 1, 1, 1, 6, '2', '1' );
+Insert into asignaciones values( 1, 1, 1, 6, 2, 'fija', '7000.33');
+Insert into instrucciones values( 1, 1, 1, 6, '3', '1' );
+Insert into asignaciones values( 1, 1, 1, 6, 3, 'liminferior', '280012.03');
+Insert into metodos values( 1, 1, 1, 7, 'metodo6');
+Insert into instrucciones values( 1, 1, 1, 7, '1', '2' );
+Insert into decisiones values( 1, 1, 1, 7, 1, 'precio > 326680.84 && !(precio > 420017.94)', 'metodo7', 'metodo8');
+Insert into metodos values( 1, 1, 1, 8, 'metodo7');
+Insert into instrucciones values( 1, 1, 1, 8, '1', '1' );
+Insert into asignaciones values( 1, 1, 1, 8, 1, 'tasa', '15.0');
+Insert into instrucciones values( 1, 1, 1, 8, '2', '1' );
+Insert into asignaciones values( 1, 1, 1, 8, 2, 'fija', '11667.19');
+Insert into instrucciones values( 1, 1, 1, 8, '3', '1' );
+Insert into asignaciones values( 1, 1, 1, 8, 3, 'liminferior', '326680.84');
+Insert into metodos values( 1, 1, 1, 9, 'metodo8');
+Insert into instrucciones values( 1, 1, 1, 9, '1', '2' );
+Insert into decisiones values( 1, 1, 1, 9, 1, 'precio > 420017.95', 'metodo9', 'metodoVacio');
+Insert into metodos values( 1, 1, 1, 10, 'metodo9');
+Insert into instrucciones values( 1, 1, 1, 10, '1', '1' );
+Insert into asignaciones values( 1, 1, 1, 10, 1, 'tasa', '17.0');
+Insert into instrucciones values( 1, 1, 1, 10, '2', '1' );
+Insert into asignaciones values( 1, 1, 1, 10, 2, 'fija', '25667.73');
+Insert into instrucciones values( 1, 1, 1, 10, '3', '1' );
+Insert into asignaciones values( 1, 1, 1, 10, 3, 'liminferior', '420017.95');
+Insert into metodos values( 1, 1, 1, 11, 'metodoVacio');
