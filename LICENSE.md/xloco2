@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+<xsl:output method="html" encoding="UTF-8"/>
+<xsl:template match="/">
+<html>
+	<body>
+		<h2>Ejecución obtenida</h2>
+		<h3>Lenguaje JAVASCRIPT</h3>
+		
+		<h4>Empezo en este tiempo:</h4> 
+		<script type="text/javascript">
+			var d = new Date(); 
+			document.write(d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+":"+d.getMilliseconds());
+		</script>
+		(Hora/Minutos/Segundos/Milisegundos)<br/><br/>
+		
+		<xsl:apply-templates/>
+		<xsl:for-each select="//usuario">
+			<xsl:variable name="idusuario" select="position()" />
+			Insert into usuarios values (
+			<xsl:value-of select="$idusuario"/>,
+			"<xsl:value-of select="@nbusuario"/>"); <br/>
+			<xsl:for-each select="ontologia">
+				<xsl:variable name="idontologia" select="position()" />
+				Insert into ontologias values (
+				<xsl:value-of select="$idusuario"/>,
+				<xsl:value-of select="$idontologia"/>,
+				"<xsl:value-of select="@nbontologia"/>"); <br/>
+				<xsl:for-each select="ideal">
+					<xsl:variable name="idideal" select="position()" />
+					Insert into ideales values (
+					<xsl:value-of select="$idusuario"/>,
+					<xsl:value-of select="$idontologia"/>,
+					<xsl:value-of select="$idideal"/>,
+					"<xsl:value-of select="@nbideal"/>"); <br/>
+					<xsl:for-each select="//metodo">
+						<xsl:variable name="idmetodo" select="position()" />
+						Insert into metodos values(
+						<xsl:value-of select="$idusuario"/>,
+						<xsl:value-of select="$idontologia"/>,
+						<xsl:value-of select="$idideal"/>,
+						<xsl:value-of select="$idmetodo"/>, 
+						'<xsl:value-of select="@nbmetodo"/>');<br/>
+						<xsl:for-each select="child::*">
+							<xsl:variable name="idinstruccion" select="position()" />
+							Insert into instrucciones values(
+							<xsl:value-of select="$idusuario"/>,
+							<xsl:value-of select="$idontologia"/>,
+							<xsl:value-of select="$idideal"/>,
+							<xsl:value-of select="$idmetodo"/>, 
+							'<xsl:value-of select="$idinstruccion"/>', 
+							<xsl:choose>
+								<xsl:when test="name()='asignacion'">'1'</xsl:when>
+								<xsl:when test="name()='decision'">'2'</xsl:when>
+								<xsl:otherwise>'0'</xsl:otherwise>
+							</xsl:choose>
+							);<br/> 
+							<xsl:choose>
+								<xsl:when test="name()='decision'">
+									Insert into decisiones values(
+									<xsl:value-of select="$idusuario"/>,
+									<xsl:value-of select="$idontologia"/>,
+									<xsl:value-of select="$idideal"/>,
+									<xsl:value-of select="$idmetodo"/>, 
+									<xsl:value-of select="$idinstruccion"/>,
+									'<xsl:value-of select="condicion"/>',
+									'<xsl:value-of select="verdadero/metodo/@nbmetodo"/>',
+									'<xsl:value-of select="falso/metodo/@nbmetodo"/>');<br/> 
+								</xsl:when>
+								<xsl:when test="name()='asignacion'">
+									Insert into asignaciones values(
+									<xsl:value-of select="$idusuario"/>,
+									<xsl:value-of select="$idontologia"/>,
+									<xsl:value-of select="$idideal"/>,
+									<xsl:value-of select="$idmetodo"/>, 
+									<xsl:value-of select="$idinstruccion"/>,
+									'<xsl:value-of select="variable"/>',
+									'<xsl:value-of select="operando"/>');<br/>
+								</xsl:when>
+							</xsl:choose>
+						</xsl:for-each>
+					</xsl:for-each>
+				</xsl:for-each>
+			</xsl:for-each>
+		</xsl:for-each>
+
+		<h3>Acabó en este tiempo:</h3> 
+		<script type="text/javascript">
+			var e = new Date(); 
+			document.write(e.getHours()+":"+e.getMinutes()+":"+e.getSeconds()+":"+e.getMilliseconds());
+		</script>
+		(Hora/Minutos/Segundos/Milisegundos)<br/><br/>
+		
+	</body>
+</html>
+</xsl:template>
+	<xsl:template match="//ideal">
+		<xsl:apply-templates select="atributos"/>
+		<xsl:apply-templates select="metodos"/>
+		<br/><h3>Lenguaje MYSQL</h3>
+	</xsl:template>
+
+	<xsl:template match="atributos">
+		<xsl:apply-templates select="atributo"/>
+	</xsl:template>
+
+	<xsl:template match="atributo">
+		<code>
+		<xsl:choose>
+			<xsl:when test="@tipo = 'entero'">Var <xsl:value-of select="@nbatributo"/> as integer;<br/></xsl:when>
+			<xsl:when test="@tipo = 'logico'">Var <xsl:value-of select="@nbatributo"/> as Boolean;<br/></xsl:when>
+			<xsl:when test="@tipo = 'texto'">Var <xsl:value-of select="@nbatributo"/> as String;<br/></xsl:when>
+			<xsl:when test="@tipo = 'decimal'">Var <xsl:value-of select="@nbatributo"/> as Float;<br/></xsl:when>
+			<xsl:when test="@tipo = 'fecha'">Var <xsl:value-of select="@nbatributo"/> as Date;<br/></xsl:when>
+			<xsl:when test="@tipo = 'objeto'">Var <xsl:value-of select="@nbatributo"/> as Object<br/></xsl:when>
+			<xsl:otherwise>Tipo invalido</xsl:otherwise>    
+		</xsl:choose>
+	</code>
+	</xsl:template>
+
+	<xsl:template match="metodos">
+		<xsl:apply-templates select="metodo"/>
+	</xsl:template>
+		
+	<xsl:template match="metodo">
+		<br/>function <xsl:value-of select="@nbmetodo"/> () {<br/>
+		<xsl:apply-templates/> }<br/>
+	</xsl:template>
+		
+	<xsl:template match="asignacion">
+		<xsl:value-of select="variable"/>=
+		<xsl:value-of select="operando"/>;<br/>
+	</xsl:template>
+		
+	<xsl:template match="decision">
+		if (<xsl:value-of select="condicion"/>) {
+		<xsl:apply-templates select="verdadero"/>
+		<xsl:apply-templates select="falso"/>
+	</xsl:template>
+		
+	<xsl:template match="verdadero">
+		<xsl:apply-templates select="metodo"/>}<br/>
+	</xsl:template>
+
+	<xsl:template match="falso">
+		<code>else {<br/><xsl:apply-templates select="metodo"/>}<br/></code>
+	</xsl:template>
+</xsl:stylesheet>
